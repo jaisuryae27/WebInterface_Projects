@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #e8efff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 320px;
+            box-shadow: 0 4px 15px #0002;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2563eb;
+        }
+
+        label {
+            display: block;
+            margin-top: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        #message {
+            text-align: center;
+            overflow-wrap: anywhere;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Registration Form</h2>
+
+        <form id="myForm">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Enter your name">
+
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email">
+
+            <label for="password">Password</label>
+            <input type="password" id="password"
+                   placeholder="Minimum 8 characters">
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword"
+                   placeholder="Re-enter password">
+
+            <button type="submit">Register</button>
+            <p id="message" role="status"></p>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById("myForm");
+        const message = document.getElementById("message");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+            const confirmPassword =
+                document.getElementById("confirmPassword").value;
+
+            if (name === "") {
+                showMessage("Please enter your name.", "red");
+            } else if (email === "") {
+                showMessage("Please enter your email.", "red");
+            } else if (password.length < 8) {
+                showMessage(
+                    "Password must be at least 8 characters.", "red"
+                );
+            } else if (password !== confirmPassword) {
+                showMessage("Passwords do not match.", "red");
+            } else {
+                showMessage("Registration successful!", "green");
+            }
+        });
+
+        function showMessage(text, color) {
+            message.textContent = text;
+            message.style.color = color;
+        }
+    </script>
+</body>
+</html>
